@@ -21,6 +21,14 @@ def create_app():
     migrate.init_app(app, db)
     babel.init_app(app)
 
+    @babel.localeselector
+    def get_locale():
+        return requests.accept_languages.best_match(['en', 'de', 'ar'])
+
+    @app.context_processor
+    def inject_get_locale():
+        return dict(get_locale=get_locale)
+
     from .views import main as main_blueprint
     app.register_blueprint(main_blueprint)
 
