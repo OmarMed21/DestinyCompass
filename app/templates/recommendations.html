@@ -2,15 +2,19 @@
 <html lang="{{ get_locale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>{{ gettext('Recommendations') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Recommendations') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>{{ gettext('Recommendations for') }} {{ user.name }}</h1>
-    <ul>
-        {% for recommendation in recommendations %}
-            <li>{{ recommendation }}</li>
-        {% endfor %}
-    </ul>
-    <a href="{{ url_for('main.generate_pdf_route', user_id=user.id) }}">{{ gettext('Download PDF Report') }}</a>
+    <div class="container">
+        <h1>{{ _('Recommendations for') }} {{ user.name }}</h1>
+        <ul>
+            {% for recommendation in recommendations %}
+                <li>{{ recommendation }}</li>
+            {% endfor %}
+        </ul>
+        <a href="{{ url_for('main.generate_pdf_route', user_id=user.id) }}" class="btn btn-secondary">{{ _('Download PDF Report') }}</a>
+    </div>
 </body>
 </html>

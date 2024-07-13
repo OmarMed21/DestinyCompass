@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from flask import Flask
+from flask import Flask, request
 from flask_babel import Babel
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate

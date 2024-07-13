@@ -1,7 +1,7 @@
 import openai
 from reportlab.pdfgen import canvas
 from flask import current_app
-import os 
+import os
 
 openai.api_key = os.environ.get("OPENAI_API_KEY")
 
@@ -18,12 +18,15 @@ def generate_recommendations(user):
     Based on this profile, please provide personalized life recommendations for the next {user.time_frame}.
     """
 
-    response = openai.Completion.create(
-        engine="text-davinci-003",
-        prompt=prompt,
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": prompt}
+        ],
         max_tokens=500
     )
-    recommendations = response.choices[0].text.strip().split('\n')
+    recommendations = response.choices[0].message['content'].strip().split('\n')
     return recommendations
 
 def generate_pdf(user, recommendations):

@@ -2,37 +2,43 @@
 <html lang="{{ get_locale() }}">
 <head>
     <meta charset="UTF-8">
-    <title>{{ gettext('Profile') }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ _('Profile') }}</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
 </head>
 <body>
-    <h1>{{ gettext('User Profile') }}</h1>
-    <form method="POST">
-        {{ form.hidden_tag() }}
-        <p>
-            {{ form.name.label }}<br>
-            {{ form.name(size=32) }}<br>
-        </p>
-        <p>
-            {{ form.age.label }}<br>
-            {{ form.age(size=32) }}<br>
-        </p>
-        <p>
-            {{ form.profession.label }}<br>
-            {{ form.profession(size=32) }}<br>
-        </p>
-        <p>
-            {{ form.goals.label }}<br>
-            {{ form.goals(rows=4, cols=32) }}<br>
-        </p>
-        <p>
-            {{ form.interests.label }}<br>
-            {{ form.interests(rows=4, cols=32) }}<br>
-        </p>
-        <p>
-            {{ form.time_frame.label }}<br>
-            {{ form.time_frame() }}<br>
-        </p>
-        <p>{{ form.submit() }}</p>
-    </form>
+    <div class="container">
+        <h1>{{ _('User Profile') }}</h1>
+        <form method="POST">
+            {{ form.hidden_tag() }}
+            <div class="form-group">
+                {{ form.name.label }}<br>
+                {{ form.name(class="form-control") }}<br>
+            </div>
+            <div class="form-group">
+                {{ form.age.label }}<br>
+                {{ form.age(class="form-control") }}<br>
+            </div>
+            <div class="form-group">
+                {{ form.profession.label }}<br>
+                {{ form.profession(class="form-control") }}<br>
+            </div>
+            <div class="form-group">
+                {{ form.goals.label }}<br>
+                {{ form.goals(class="form-control") }}<br>
+            </div>
+            <div class="form-group">
+                {{ form.interests.label }}<br>
+                {{ form.interests(class="form-control") }}<br>
+            </div>
+            <div class="form-group">
+                {{ form.time_frame.label }}<br>
+                {{ form.time_frame(class="form-control") }}<br>
+            </div>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-primary") }}
+            </div>
+        </form>
+    </div>
 </body>
 </html>
