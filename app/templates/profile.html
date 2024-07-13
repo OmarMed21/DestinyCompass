@@ -5,6 +5,27 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{ _('Profile') }}</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            document.querySelector('.add-interest button').addEventListener('click', () => {
+                const newInterestInput = document.querySelector('.add-interest input');
+                const newInterest = newInterestInput.value.trim();
+                if (newInterest) {
+                    const interestsContainer = document.querySelector('.interests-container');
+                    const interestBox = document.createElement('div');
+                    interestBox.className = 'interest-box';
+                    interestBox.textContent = newInterest;
+                    interestBox.addEventListener('click', () => interestBox.remove());
+                    interestsContainer.appendChild(interestBox);
+                    newInterestInput.value = '';
+                }
+            });
+
+            document.querySelectorAll('.interest-box').forEach(box => {
+                box.addEventListener('click', () => box.remove());
+            });
+        });
+    </script>
 </head>
 <body>
     <div class="container">
@@ -29,7 +50,15 @@
             </div>
             <div class="form-group">
                 {{ form.interests.label }}<br>
-                {{ form.interests(class="form-control") }}<br>
+                <div class="interests-container">
+                    {% for interest in form.interests.choices %}
+                        <div class="interest-box">{{ interest[1] }}</div>
+                    {% endfor %}
+                </div>
+                <div class="add-interest">
+                    {{ form.new_interest(class="form-control", placeholder="Add new interest") }}
+                    <button type="button" class="btn">Add</button>
+                </div>
             </div>
             <div class="form-group">
                 {{ form.time_frame.label }}<br>

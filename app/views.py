@@ -1,4 +1,4 @@
-from flask import Blueprint, render_template, request, redirect, url_for, send_file
+from flask import Blueprint, render_template, request, redirect, url_for, flash, send_file
 from .models import UserProfile
 from .forms import UserProfileForm
 from .utils import generate_pdf, generate_recommendations
@@ -14,12 +14,16 @@ def index():
 def profile():
     form = UserProfileForm()
     if form.validate_on_submit():
+        interests = form.interests.data
+        if form.new_interest.data:
+            interests.append(form.new_interest.data)
+
         user = UserProfile(
             name=form.name.data,
             age=form.age.data,
             profession=form.profession.data,
             goals=form.goals.data,
-            interests=form.interests.data,
+            interests=", ".join(interests),
             time_frame=form.time_frame.data
         )
         db.session.add(user)
