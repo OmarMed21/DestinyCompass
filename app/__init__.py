@@ -12,10 +12,10 @@ load_dotenv()
 
 def create_app():
     app = Flask(__name__)
-    app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///Compass_density_game.db'
+    app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('SQLALCHEMY_DATABASE_URI')
     app.config['SECRET_KEY'] =  os.getenv('SECRET_KEY')
-    app.config['BABEL_DEFAULT_LOCALE'] =  'en'
-    app.config['BABEL_TRANSLATION_DIRECTORIES'] = './translations'
+    app.config['BABEL_DEFAULT_LOCALE'] =  os.getenv('BABEL_DEFAULT_LOCALE')
+    app.config['BABEL_TRANSLATION_DIRECTORIES'] = os.getenv('BABEL_TRANSLATION_DIRECTORIES')
 
     db.init_app(app)
     migrate.init_app(app, db)
